@@ -16,5 +16,4 @@ LinksScreen.navigationOptions = {
   title: "Links"
 };
 
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({});
