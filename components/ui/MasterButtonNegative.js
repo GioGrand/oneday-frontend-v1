@@ -4,7 +4,7 @@ import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { DotIndicator } from 'react-native-indicators';
 import { ScaledSheet } from 'react-native-size-matters';
 
-export function MasterButton(props) {
+export function MasterButtonNegative(props) {
   const { title = 'Enter', style = {}, loading, onPress } = props;
 
   return (
@@ -24,12 +24,14 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '18@ms1',
-    backgroundColor: '#1A1C2B',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#1A1C2B',
   },
 
   text: {
     fontFamily: 'sf-ui',
     fontSize: '16@ms1',
-    color: '#FFFFFF',
+    color: '#1A1C2B',
   },
 });

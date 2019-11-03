@@ -2,9 +2,8 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
 import { DotIndicator } from 'react-native-indicators';
-import { ScaledSheet } from 'react-native-size-matters';
 
-export function MasterButton(props) {
+export function RoundedButtonNegative(props) {
   const { title = 'Enter', style = {}, loading, onPress } = props;
 
   return (
@@ -14,22 +13,24 @@ export function MasterButton(props) {
   );
 }
 
-const styles = ScaledSheet.create({
+const styles = StyleSheet.create({
   button: {
     display: 'flex',
-    height: '44@ms1',
-    paddingHorizontal: '32@ms1',
-
-    borderRadius: '32@ms1',
+    height: 40,
+    paddingLeft: 35,
+    paddingRight: 35,
+    borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '18@ms1',
-    backgroundColor: '#1A1C2B',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#1A1C2B'
+    
   },
 
   text: {
     fontFamily: 'sf-ui',
-    fontSize: '16@ms1',
-    color: '#FFFFFF',
+    fontSize: 15,
+    color: '#1A1C2B',
   },
 });
