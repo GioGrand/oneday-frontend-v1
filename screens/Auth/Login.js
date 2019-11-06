@@ -1,7 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import { useSelector, useDispatch } from 'react-redux';
+import ReactGA from 'react-ga';
+
 // UI COMPONENTS
 import { BaseInput, BaseTitle, MasterButton, AntDesign } from './../../components/ui/index';
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
@@ -11,8 +13,7 @@ import { useMutation } from '@apollo/react-hooks';
 // COMPONENT SPECIFIC
 import { login } from './../../store/actions/auth';
 
-
-export default function LoginScreen(props) {
+export default function Login(props) {
   const dispatch = useDispatch();
 
   const [errors, setErrors] = useState({});
@@ -30,6 +31,14 @@ export default function LoginScreen(props) {
     variables: { userName, password },
   });
 
+  useEffect(() => {
+    ReactGA.initialize('214460166', {
+      gaOptions: {
+        userId: 123
+      }
+    });
+  }, [])
+
   return (
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps={'handled'}
@@ -43,7 +52,7 @@ export default function LoginScreen(props) {
       <BaseTitle style={styles.baseTitle}>Login</BaseTitle>
       <View style={styles.login_container}>
         <BaseInput placeholder="your username" label="Username" onChangeText={e => setUserName(e)} value={userName} />
-        <BaseInput placeholder="your super secret password" label="Password" onChangeText={e => setPassword(e)} value={password} />
+        <BaseInput secureTextEntry={true} placeholder="your super secret password" label="Password" onChangeText={e => setPassword(e)} value={password} />
 
         {Object.keys(errors).length > 0 &&
           Object.values(errors).map(el => {
@@ -59,7 +68,7 @@ export default function LoginScreen(props) {
   );
 }
 
-LoginScreen.navigationOptions = ({ navigation }) => ({
+Login.navigationOptions = ({ navigation }) => ({
   title: '',
   headerStyle: {
     borderBottomWidth: 0,
@@ -74,7 +83,6 @@ LoginScreen.navigationOptions = ({ navigation }) => ({
   ),
   headerRight: null,
 });
-
 
 const styles = ScaledSheet.create({
   login_container: {
@@ -92,9 +100,16 @@ const LOGIN_USER = gql`
   mutation login($userName: String!, $password: String!) {
     login(userName: $userName, password: $password) {
       id
-      email
       userName
-      createdAt
+      email
+      profileImageLowRes
+      profileImageHiRes
+      emailNotifications
+      notifications
+      daysCount
+      favouritesCount
+      followersCount
+      followingCount
       token
     }
   }

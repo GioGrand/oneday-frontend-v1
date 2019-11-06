@@ -11,7 +11,7 @@ import { useMutation } from '@apollo/react-hooks';
 // COMPONENT SPECIFIC
 import { login } from './../../store/actions/auth';
 
-export default function RegisterScreen(props) {
+export default function Register(props) {
   const dispatch = useDispatch();
 
   const [errors, setErrors] = useState({});
@@ -23,7 +23,7 @@ export default function RegisterScreen(props) {
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, result) {
       dispatch(login(result.data.register));
-      props.navigation.navigate('App');
+      props.navigation.navigate('AvatarAndHashtags');
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
@@ -50,7 +50,7 @@ export default function RegisterScreen(props) {
       <View style={styles.register_container}>
         <BaseInput placeholder="Es: gioG" label="Username" onChangeText={e => setUserName(e)} value={userName} />
         <BaseInput placeholder="gio@gmail.com" label="Email" onChangeText={e => setEmail(e)} value={email} />
-        <BaseInput placeholder="your super secret password" label="Password" onChangeText={e => setPassword(e)} value={password} />
+        <BaseInput  placeholder="your super secret password" label="Password" onChangeText={e => setPassword(e)} value={password} />
         <BaseInput placeholder="confirm password" label="Confirm Password" onChangeText={e => setConfirmPassword(e)} value={confirmPassword} />
         {Object.keys(errors).length > 0 &&
           Object.values(errors).map(el => {
@@ -66,8 +66,7 @@ export default function RegisterScreen(props) {
   );
 }
 
-
-RegisterScreen.navigationOptions = ({ navigation }) => ({
+Register.navigationOptions = ({ navigation }) => ({
   title: '',
   headerStyle: {
     borderBottomWidth: 0,
@@ -82,7 +81,6 @@ RegisterScreen.navigationOptions = ({ navigation }) => ({
   ),
   headerRight: null,
 });
-
 
 const styles = ScaledSheet.create({
   register_container: {
@@ -100,9 +98,16 @@ const REGISTER_USER = gql`
   mutation register($userName: String!, $email: String!, $password: String!, $confirmPassword: String!) {
     register(userName: $userName, email: $email, password: $password, confirmPassword: $confirmPassword) {
       id
-      email
       userName
-      createdAt
+      email
+      profileImageLowRes
+      profileImageHiRes
+      emailNotifications
+      notifications
+      daysCount
+      favouritesCount
+      followersCount
+      followingCount
       token
     }
   }

@@ -4,8 +4,10 @@ export const LOGOUT = 'LOGOUT';
 import { AsyncStorage } from 'react-native';
 
 export const login = userData => {
-  console.log('FROM ACTION', userData)
-  AsyncStorage.setItem('jwtToken', userData.token);
+  console.log('FROM ACTION', userData);
+  if (userData.token) {
+    AsyncStorage.setItem('jwtToken', userData.token);
+  }
   return { type: LOGIN, userData };
 };
 

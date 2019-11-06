@@ -4,15 +4,19 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { createStackNavigator } from 'react-navigation';
 
-import LoginScreen from '../../screens/Auth/Login';
-import RegisterScreen from '../../screens/Auth/Register';
-import OnBoardingScreen from '../../screens/Auth/OnBoarding';
+import Login from '../../screens/Auth/Login';
+import Register from '../../screens/Auth/Register';
+import OnBoarding from '../../screens/Auth/OnBoarding';
+import AvatarAndHashtags from '../../screens/Auth/AvatarAndHashTags';
+import SocialLogin from '../../screens/Auth/SocialLogin';
 
 const AuthStack = createStackNavigator(
   {
-    OnBoarding: OnBoardingScreen,
-    Login: LoginScreen,
-    Register: RegisterScreen,
+    SocialLogin,
+    OnBoarding,
+    Login,
+    Register,
+    AvatarAndHashtags,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

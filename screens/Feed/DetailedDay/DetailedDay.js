@@ -16,6 +16,7 @@ import FadeIn from 'react-native-fade-in-image';
 import UserMainDescription from './elements/UserMainDescription';
 import LikeSave from '../FeedItem2/elements/LikeSave';
 import DescriptionHashtags from '../FeedItem2/elements/DescriptionHashtags';
+import openMap from 'react-native-open-maps';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -45,6 +46,10 @@ export default function DetailedDay(props) {
     setTimeout(() => {
       map.fitToCoordinates(newArray, { edgePadding: { top: 100, right: 100, bottom: 200, left: 100 }, animated: true });
     }, 100);
+  };
+
+  _goToYosemite = () => {
+    openMap({ query: `${currentDay.posts[1].location.coordinates[0]}, ${currentDay.posts[1].location.coordinates[1]}`, provider: 'google' });
   };
 
   return (
@@ -92,6 +97,7 @@ export default function DetailedDay(props) {
 
           <DescriptionHashtags />
           <LikeSave />
+          <Text onPress={_goToYosemite}>Open in Google Maps</Text>
           <View style={{ height: 20 }}></View>
         </View>
 

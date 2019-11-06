@@ -7,7 +7,7 @@ import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 const screenHeigth = Math.round(Dimensions.get('window').height);
 const screenWidth = Math.round(Dimensions.get('window').width);
 
-export default function OnBoardingScreen(props) {
+export default function OnBoarding(props) {
   return (
     <Onboarding
       showDone={false}
@@ -73,7 +73,7 @@ export default function OnBoardingScreen(props) {
   );
 }
 
-OnBoardingScreen.navigationOptions = ({ navigation }) => ({
+OnBoarding.navigationOptions = ({ navigation }) => ({
   title: '',
   headerStyle: {
     borderBottomWidth: 0,

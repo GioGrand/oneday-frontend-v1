@@ -2,11 +2,11 @@ import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
 
-export default BaseInput = ({ label, placeholder, value, onChangeText, secureTextEntry }) => {
+export default BaseInput = ({ label, placeholder, value, onChangeText, secureTextEntry, type }) => {
   return (
     <View style={styles.input_container}>
       <Text style={styles.input_label}>{label}</Text>
-      <TextInput autoCapitalize="none" placeholder={placeholder} autoCorrect={false} style={styles.input_body} value={value} onChangeText={onChangeText} />
+      <TextInput  autoCapitalize="none" placeholder={placeholder} autoCorrect={false} style={styles.input_body} value={value} onChangeText={onChangeText} />
     </View>
   );
 };

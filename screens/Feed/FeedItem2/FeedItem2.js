@@ -19,15 +19,8 @@ export default function FeedItem2(props) {
   let randomImage = Math.floor(Math.random() * 30);
   console.log(randomImage);
 
-  // const dispatch = useDispatch();
-
-  // const onSelect = () => {
-  //   dispatch(setDetailedDay(props.day.item));
-  //   props.navigation.navigate('DetailedDay', {
-  //     dayId: props.day.item.id,
-  //   });
-  // };
   const { item } = props.day;
+  console.log(item);
 
   return (
     <View style={styles.feedItem_Container}>

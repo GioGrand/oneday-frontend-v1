@@ -9,7 +9,7 @@ export function MasterButtonNegative(props) {
 
   return (
     <TouchableOpacity onPress={onPress} loading={loading} style={[styles.button, style]}>
-      {loading ? <DotIndicator color="white" size={6} /> : <Text {...props} style={[props.style, styles.text]} />}
+      {loading ? <DotIndicator color="white" size={6} /> : <Text {...props} style={[ styles.text, props.style]} />}
     </TouchableOpacity>
   );
 }
@@ -19,7 +19,6 @@ const styles = ScaledSheet.create({
     display: 'flex',
     height: '44@ms1',
     paddingHorizontal: '32@ms1',
-
     borderRadius: '32@ms1',
     justifyContent: 'center',
     alignItems: 'center',

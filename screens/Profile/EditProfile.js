@@ -1,23 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Switch, StyleSheet, View, Text, ScrollView, TouchableWithoutFeedback, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-
+// UI COMPONENTS
 import { BaseTitle, MasterButton, AntDesign, BaseInput } from '../../components/ui/index';
-import { logout } from './../../store/actions/auth';
 import FadeIn from 'react-native-fade-in-image';
-
 import { ScaledSheet } from 'react-native-size-matters';
+// GRAPHQL
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
+// COMPONENT SPECIFIC
+import { login } from './../../store/actions/auth';
 
 export default function EditProfile(props) {
-  let urlR = 'https://www.sylvansport.com/wp/wp-content/uploads/2018/11/image-placeholder-1200x800.jpg';
-
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth);
-  console.log(user.user);
 
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState({});
+
+  const [updateProfile, { loading }] = useMutation(UPDATE_USER, {
+    update(_, result) {
+      console.log(result.data.updateProfile);
+      dispatch(login(result.data.updateProfile));
+      props.navigation.navigate('Feed');
+    },
+    onError(err) {
+      console.log(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+    },
+    variables: { userName, email },
+  });
+
+  const submitHandler = () => {
+    console.log(email, userName);
+    updateProfile();
+  };
 
   useEffect(() => {
     setEmail(user.user.email);
@@ -31,7 +49,7 @@ export default function EditProfile(props) {
 
         <View style={styles.profileImageContainer}>
           <FadeIn>
-            <Image style={styles.image} source={{ uri: urlR }} />
+            <Image style={styles.image} source={{ uri: user.user.profileImageHiRes }} />
           </FadeIn>
           <Text style={styles.changePicture_text}>change profile picture</Text>
         </View>
@@ -46,7 +64,7 @@ export default function EditProfile(props) {
               return <Text key={el}>{el}</Text>;
             })}
 
-          <MasterButton loading={false} onPress={() => console.log('ciaoo')}>
+          <MasterButton loading={loading} onPress={submitHandler}>
             Update profile
           </MasterButton>
         </View>
@@ -102,3 +120,21 @@ const styles = ScaledSheet.create({
     justifyContent: 'flex-start',
   },
 });
+
+const UPDATE_USER = gql`
+  mutation updateProfile($userName: String!, $email: String!) {
+    updateProfile(userName: $userName, email: $email) {
+      id
+      userName
+      email
+      profileImageLowRes
+      profileImageHiRes
+      emailNotifications
+      notifications
+      daysCount
+      favouritesCount
+      followersCount
+      followingCount
+    }
+  }
+`;
