@@ -17,7 +17,6 @@ export default function Feed(props) {
   const [refreshing, setRefreshing] = useState(false);
 
   const { loading, error, data: { getDays = [] } = {}, refetch } = useQuery(GET_DAYS);
-  // console.log(getDays);
 
   _onRefresh = () => {
     setRefreshing(true);
@@ -25,18 +24,11 @@ export default function Feed(props) {
     refetch();
     setRefreshing(false);
   };
-  console.log(props.navigation);
   const day = useSelector(state => state.days.day);
 
   return (
     <View style={styles.container}>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />}>
-        {/* <MasterButton loading={false} onPress={openNewDay}>
-          Register
-        </MasterButton>
-        <MasterButton loading={false} onPress={clearNewDay}>
-          Register
-        </MasterButton> */}
         {loading ? <ActivityIndicator size="large" /> : <Text></Text>}
         <FlatList refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />} data={getDays} keyExtractor={item => item.id.toString()} renderItem={day => <FeedItem2 navigation={props.navigation} day={day} />} />
       </ScrollView>
@@ -72,6 +64,9 @@ const GET_DAYS = gql`
     getDays {
       id
       locationName
+      description
+      weatherType
+      temperature
       open
       author {
         id

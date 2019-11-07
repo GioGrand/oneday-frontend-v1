@@ -28,7 +28,7 @@ export default function OnBoarding(props) {
           subtitle: (
             <View style={styles.subtitle_view}>
               <Text style={styles.subtitle_text}>Lorem ipsum dolor sit consectetur adipiscing elit.</Text>
-              <MasterButton loading={false} onPress={() => props.navigation.navigate('Register')}>
+              <MasterButton loading={false} onPress={() => props.navigation.navigate('SocialRegister')}>
                 Create account
               </MasterButton>
             </View>
@@ -45,7 +45,7 @@ export default function OnBoarding(props) {
           subtitle: (
             <View style={styles.subtitle_view}>
               <Text style={styles.subtitle_text}>Lorem ipsum dolor sit consectetur adipiscing elit.</Text>
-              <MasterButton loading={false} onPress={() => props.navigation.navigate('Register')}>
+              <MasterButton loading={false} onPress={() => props.navigation.navigate('SocialRegister')}>
                 Create account
               </MasterButton>
             </View>
@@ -62,7 +62,7 @@ export default function OnBoarding(props) {
           subtitle: (
             <View style={styles.subtitle_view}>
               <Text style={styles.subtitle_text}>Lorem ipsum dolor sit consectetur adipiscing elit.</Text>
-              <MasterButton loading={false} onPress={() => props.navigation.navigate('Register')}>
+              <MasterButton loading={false} onPress={() => props.navigation.navigate('SocialRegister')}>
                 Create account
               </MasterButton>
             </View>

@@ -30,7 +30,7 @@ export default function SaveDay(props) {
       props.navigation.navigate('Feed');
     },
     onError(err) {
-      console.log(err);
+      console.log(err.graphQLErrors[0].extensions.exception.errors.message);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: { day },

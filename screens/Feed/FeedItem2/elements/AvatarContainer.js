@@ -3,12 +3,10 @@ import { Image } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import { ScaledSheet } from 'react-native-size-matters';
 
-export default function AvatarContainer(props) {
-  let urlR = 'https://www.sylvansport.com/wp/wp-content/uploads/2018/11/image-placeholder-1200x800.jpg';
-
+export default function AvatarContainer({ item }) {
   return (
     <FadeIn>
-      <Image style={styles.image} source={{ uri: urlR }} />
+      <Image style={styles.image} source={{ uri: item.author.profileImageHiRes }} />
     </FadeIn>
   );
 }

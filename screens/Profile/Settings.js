@@ -9,6 +9,7 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 // COMPONENT SPECIFIC
 import { logout, login } from './../../store/actions/auth';
+import { clearDay } from './../../store/actions/days';
 
 export default function Settings(props) {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ export default function Settings(props) {
   };
 
   const handleLogout = () => {
+    dispatch(clearDay());
     dispatch(logout());
     props.navigation.navigate('AuthLoading');
   };

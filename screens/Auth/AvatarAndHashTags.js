@@ -53,7 +53,7 @@ export default function AvatarAndHashtags(props) {
       <View style={styles.settings_container}>
         <View style={styles.profileImageContainer}>
           <FadeIn>
-            <Image style={styles.image} source={{ uri: user.user.profileImageHiRes }} />
+            <Image style={styles.image} source={{ uri: user.user.profileImageLowRes }} />
           </FadeIn>
           <Text style={styles.changePicture_text}>change profile picture</Text>
         </View>

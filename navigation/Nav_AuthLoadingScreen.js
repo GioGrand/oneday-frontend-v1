@@ -8,9 +8,9 @@ export default function Nav_AuthLoadingScreen(props) {
     const jwtToken = await AsyncStorage.getItem('jwtToken');
     if (jwtToken !== 'undefined' && jwtToken !== null) {
       let decoded = jwtDecode(jwtToken);
-      console.log(decoded);
+      //      console.log(decoded);
     }
-    props.navigation.navigate(jwtToken ? 'App' : 'SocialAuthSession');
+    props.navigation.navigate(jwtToken ? 'App' : 'OnBoarding');
   });
 
   return (

@@ -11,6 +11,7 @@ const initialState = {
     localFilteredImageUri: '',
     postImageHiRes: '',
     title: '',
+    description: '',
     lat: '',
     lng: '',
     imageObjToUpload: '',

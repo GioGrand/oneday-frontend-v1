@@ -26,16 +26,16 @@ const shaders = Shaders.create({
 
 export const Saturate = ({ contrast, saturation, brightness, children }) => <Node shader={shaders.Saturate} uniforms={{ contrast, saturation, brightness, t: children }} />;
 
-export default function FilterSaturate({ url, update }) {
+export default function NoFilter({ url, update }) {
   console.log(url);
   const filter = {
-    contrast: 1.4,
-    saturation: 0.8,
-    brightness: 1.2,
+    contrast: 1,
+    saturation: 1,
+    brightness: 1,
   };
 
   updateImage = async () => {
-    let pictureSave = await imageFilterSaturate.glView.capture({ quality: 1 });
+    let pictureSave = await imageFilterNf.glView.capture({ quality: 1 });
     await update(pictureSave.uri);
   };
 
@@ -46,7 +46,7 @@ export default function FilterSaturate({ url, update }) {
       </Surface>
 
       <View style={{ width: 0, height: 0 }}>
-        <Surface ref={view => (imageFilterSaturate = view)} style={{ width: 1000, height: 1000, borderRadius: 10 }}>
+        <Surface ref={view => (imageFilterNf = view)}  style={{ width: 1000, height: 1000 }}>
           <Saturate {...filter}>{{ uri: url }}</Saturate>
         </Surface>
       </View>

@@ -4,6 +4,10 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { createLogger } from 'redux-logger';
+const logger = createLogger({
+  collapsed: (getState, action, logEntry) => !logEntry.error,
+});
 
 import daysReducer from './../store/reducers/days';
 import authReducer from './reducers/auth';

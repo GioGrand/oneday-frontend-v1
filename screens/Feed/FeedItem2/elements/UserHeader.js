@@ -1,26 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import { BaseTitle, BaseInput, MasterButton, AntDesign, Feather, StyledText } from '../../../../components/ui/index';
 
-export default function UserHeader(props) {
+export default function UserHeader({ item }) {
   let weatherOptions = ['sun', 'cloud', 'cloud-snow', 'cloud-rain', 'cloud-drizzle', 'cloud-lightning'];
   let cityOptions = ['Barcelona', 'Madrid', 'Rome', 'New York city', 'Los Angeles', 'San Diego'];
   let usernameOptions = ['mahmood', 'letofrancesca', 'johnsonnaylor', 'simona.branchetti', 'federica.panicucci', 'marcomazzoliofficial'];
   let randomIndex = Math.floor(Math.random() * 6);
   let randomTemperature = Math.floor(Math.random() * 30);
-  let weatherIcon = weatherOptions[randomIndex];
+
+  console.log(item);
 
   return (
     <View style={styles.userHeader_container}>
       <View>
-        <Text style={styles.userHeader_userName}>{usernameOptions[randomIndex]}</Text>
+        <Text style={styles.userHeader_userName}>{item.author.userName}</Text>
         <Text style={styles.userHeader_place}>{cityOptions[randomIndex]}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <Feather name={weatherIcon} color="#8a8a8f" size={moderateScale(22, 1)} />
-        <Text style={styles.userHeader_temperature}>{randomTemperature}°</Text>
+        <Feather name={item.weatherType} color="#8a8a8f" size={moderateScale(22, 1)} />
+        <Text style={styles.userHeader_temperature}>{item.temperature}°</Text>
       </View>
     </View>
   );

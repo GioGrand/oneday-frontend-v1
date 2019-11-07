@@ -17,6 +17,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 // FILTERS
 import FilterSaturate from '../../../utils/imageManipulation/filterSaturate';
 import FilterBW from '../../../utils/imageManipulation/filterBW';
+import NoFilter from '../../../utils/imageManipulation/noFilter';
 
 const screenWidth = Math.round(Dimensions.get('window').width) - 60;
 
@@ -29,7 +30,7 @@ export default function AddPost(props) {
   snap = async () => {
     if (camera) {
       let photo = await camera.takePictureAsync();
-      const manipResult = await ImageManipulator.manipulateAsync(photo.uri, [{ resize: { width: 700, heigth: 700 } }], { compress: 1, format: ImageManipulator.SaveFormat.PNG });
+      const manipResult = await ImageManipulator.manipulateAsync(photo.uri, [{ resize: { width: 1000, heigth: 1000 } }], { compress: 1, format: ImageManipulator.SaveFormat.PNG });
       dispatch(updatePost('localOriginalImageUri', manipResult.uri));
       dispatch(updatePost('localFilteredImageUri', manipResult.uri));
       const newImage = new ReactNativeFile({
@@ -37,7 +38,7 @@ export default function AddPost(props) {
         type: 'image/png',
         name: 'i-am-a-name',
       });
-      console.log('NEW_IMAGE', newImage);
+      //console.log('NEW_IMAGE', newImage);
       dispatch(updatePost('imageObjToUpload', newImage));
     }
   };
@@ -57,7 +58,10 @@ export default function AddPost(props) {
   });
 
   const asyncSave = () => {
-    addImage();
+    if (!post.localOriginalImageUri) {
+      console.log('No image, Ill upload');
+      addImage();
+    }
     props.navigation.navigate('AddLocation');
   };
 
@@ -68,7 +72,7 @@ export default function AddPost(props) {
       type: 'image/png',
       name: 'i-am-a-name',
     });
-    console.log('NEW_IMAGE', newImage);
+    // console.log('NEW_IMAGE', newImage);
     dispatch(updatePost('imageObjToUpload', newImage));
   };
 
@@ -95,7 +99,7 @@ export default function AddPost(props) {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <BaseTitle>Upload your photo</BaseTitle>
-      <View style={{ flex: 1, height: screenWidth, maxHeight: screenWidth, borderRadius: 20, overflow: 'hidden' }}>
+      <View style={{ flex: 1, height: screenWidth, maxHeight: screenWidth, borderRadius: 15, overflow: 'hidden' }}>
         {!post.localOriginalImageUri ? (
           <Camera
             ref={ref => {
@@ -127,6 +131,7 @@ export default function AddPost(props) {
       )}
 
       <ScrollView showsHorizontalScrollIndicator={false} style={styles.filterContainer} horizontal="true">
+        <View style={styles.cameraMask}>{!post.localOriginalImageUri ? <Text></Text> : <NoFilter update={updateImageAfterFilter} url={post.localOriginalImageUri} />}</View>
         <View style={styles.cameraMask}>{!post.localOriginalImageUri ? <Text></Text> : <FilterBW update={updateImageAfterFilter} url={post.localOriginalImageUri} />}</View>
         <View style={styles.cameraMask}>{!post.localOriginalImageUri ? <Text></Text> : <FilterSaturate update={updateImageAfterFilter} url={post.localOriginalImageUri} />}</View>
       </ScrollView>

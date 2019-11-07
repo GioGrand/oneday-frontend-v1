@@ -17,18 +17,16 @@ const screenWidth = Math.round(Dimensions.get('window').width) - 50;
 
 export default function FeedItem2(props) {
   let randomImage = Math.floor(Math.random() * 30);
-  console.log(randomImage);
 
   const { item } = props.day;
-  console.log(item);
 
   return (
     <View style={styles.feedItem_Container}>
       <View style={styles.feedItem_avatarContainer}>
-        <AvatarContainer />
+        <AvatarContainer item={item} />
       </View>
       <View style={styles.feedItem_postContainer}>
-        <UserHeader />
+        <UserHeader item={item} />
         {randomImage < 15 ? <ImagesContainerSingle day={item} navigation={props.navigation} /> : <ImagesContainerScroll day={item} navigation={props.navigation} />}
         <DescriptionHashtags />
         <LikeSave />

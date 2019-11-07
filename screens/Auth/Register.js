@@ -50,7 +50,7 @@ export default function Register(props) {
       <View style={styles.register_container}>
         <BaseInput placeholder="Es: gioG" label="Username" onChangeText={e => setUserName(e)} value={userName} />
         <BaseInput placeholder="gio@gmail.com" label="Email" onChangeText={e => setEmail(e)} value={email} />
-        <BaseInput  placeholder="your super secret password" label="Password" onChangeText={e => setPassword(e)} value={password} />
+        <BaseInput placeholder="your super secret password" label="Password" onChangeText={e => setPassword(e)} value={password} />
         <BaseInput placeholder="confirm password" label="Confirm Password" onChangeText={e => setConfirmPassword(e)} value={confirmPassword} />
         {Object.keys(errors).length > 0 &&
           Object.values(errors).map(el => {

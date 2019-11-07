@@ -9,10 +9,12 @@ import Register from '../../screens/Auth/Register';
 import OnBoarding from '../../screens/Auth/OnBoarding';
 import AvatarAndHashtags from '../../screens/Auth/AvatarAndHashTags';
 import SocialLogin from '../../screens/Auth/SocialLogin';
+import SocialRegister from '../../screens/Auth/SocialRegister';
 
 const AuthStack = createStackNavigator(
   {
     SocialLogin,
+    SocialRegister,
     OnBoarding,
     Login,
     Register,

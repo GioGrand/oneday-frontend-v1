@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // UI COMPONENTS
 import { BaseTitle, BaseInput, AntDesign } from './../../components/ui/index';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 
 export default function OpenDayBottomContainer({ props }) {
   const day = useSelector(state => state.days.day);
@@ -22,19 +23,19 @@ export default function OpenDayBottomContainer({ props }) {
               </View>
             );
           })}
-        <View style={{ backgroundColor: '#F3F3F3', marginRigth: 10, width: 60, height: 60, borderRadius: 5, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <AntDesign name="plus" size={20} />
-        </View>
+        <TouchableOpacity style={{ backgroundColor: '#000', borderColor: '#e3e3e3', borderWidth: 1, marginRigth: 10, width: 60, height: 60, borderRadius: 5, flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => props.navigation.navigate('AddPost')}>
+          <AntDesign name="plus" color="#F3F3F3" size={20} />
+        </TouchableOpacity>
 
-        <TouchableOpacity style={{ backgroundColor: '#F3F3F3', marginLeft: 15, width: 60, height: 60, borderRadius: 5, flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => props.navigation.navigate('SaveDay')}>
-          <Text style={{ fontFamily: 'sf-ui' }}>SAVE</Text>
+        <TouchableOpacity style={{ backgroundColor: '#000', borderColor: '#e3e3e3', borderWidth: 1, marginLeft: 15, width: 60, height: 60, borderRadius: 5, flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={() => props.navigation.navigate('SaveDay')}>
+          <Text style={{ fontFamily: 'sf-ui', color: '#F3F3F3' }}>SAVE</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   bottomActiveDay: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
