@@ -11,13 +11,12 @@ export default function UserHeader({ item }) {
   let randomIndex = Math.floor(Math.random() * 6);
   let randomTemperature = Math.floor(Math.random() * 30);
 
-  console.log(item);
 
   return (
     <View style={styles.userHeader_container}>
       <View>
         <Text style={styles.userHeader_userName}>{item.author.userName}</Text>
-        <Text style={styles.userHeader_place}>{cityOptions[randomIndex]}</Text>
+        <Text style={styles.userHeader_place}>{item.locationName}</Text>
       </View>
       <View style={styles.rightContainer}>
         <Feather name={item.weatherType} color="#8a8a8f" size={moderateScale(22, 1)} />

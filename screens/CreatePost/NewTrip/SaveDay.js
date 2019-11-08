@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Image, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Image, Text, ScrollView, TouchableWithoutFeedback, FlatList } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import { useSelector, useDispatch } from 'react-redux';
 // UI COMPONENTS
@@ -17,10 +17,12 @@ export default function SaveDay(props) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
 
-  const [place, setPlace] = useState('');
+  const [locationName, setlocationName] = useState('');
   const [description, setDescription] = useState('');
+  const [hashtags, sethashtags] = useState([]);
 
   const day = useSelector(state => state.days.day.id);
+  const dayItem = useSelector(state => state.days.day);
   const dayId = useSelector(state => state.days.day.id);
 
   const [saveDay, { loading }] = useMutation(SAVE_DAY, {
@@ -33,7 +35,7 @@ export default function SaveDay(props) {
       console.log(err.graphQLErrors[0].extensions.exception.errors.message);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
-    variables: { day },
+    variables: { day, locationName, description, hashtags },
   });
 
   const [deleteDay] = useMutation(DELETE_DAY, {
@@ -53,28 +55,25 @@ export default function SaveDay(props) {
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps={'handled'}
       contentContainerStyle={{
-        flexGrow: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         flexDirection: 'column',
       }}
-      style={{ flex: 1, marginBottom: 40 }}
+      style={{ flex: 1 }}
     >
       <BaseTitle style={styles.baseTitle}>Save day</BaseTitle>
 
       <View style={styles.login_container}>
         <Text style={styles.label}>SPOTS:</Text>
-        <SpotsList />
-        <SpotsList />
-        <SpotsList />
+        <FlatList data={dayItem.posts} keyExtractor={item => item.id.toString()} renderItem={day => <SpotsList navigation={props.navigation} item={day} />} />
         <Text style={styles.label}>DETAILS:</Text>
-        <BaseInput placeholder="Place" label="Place" onChangeText={e => setPlace(e)} value={place} />
+        <BaseInput placeholder="Place" label="Place" onChangeText={e => setlocationName(e)} value={locationName} />
         <BaseInput placeholder="Description" label="Description" onChangeText={e => setDescription(e)} value={description} />
 
-        {Object.keys(errors).length > 0 &&
+        {/* {Object.keys(errors).length > 0 &&
           Object.values(errors).map(el => {
             console.log('logging from here', el);
             return <Text key={el}>{el}</Text>;
-          })}
+          })} */}
 
         <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
           <MasterButton loading={loading} onPress={saveDay}>
@@ -139,8 +138,8 @@ const styles = ScaledSheet.create({
 // });
 
 const SAVE_DAY = gql`
-  mutation saveDay($day: ID!) {
-    saveDay(day: $day) {
+  mutation saveDay($day: ID!, $locationName: String, $description: String, $hashtags: [String]) {
+    saveDay(day: $day, locationName: $locationName, description: $description, hashtags: $hashtags) {
       id
     }
   }

@@ -12,16 +12,20 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 console.log(screenWidth);
 
 export default function Profile(props) {
+  const user = useSelector(state => state.auth.user);
+
+  let urlR = 'https://www.sylvansport.com/wp/wp-content/uploads/2018/11/image-placeholder-1200x800.jpg';
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.topImage}>
-        <Image style={{ width: screenWidth, height: screenWidth * 0.66, resizeMode: 'cover' }} source={{ uri: 'https://res.cloudinary.com/dhqtafsst/image/upload/v1572285194/Screenshot_2019-10-28_at_16.06.53_yrnnl7.jpg' }}></Image>
+        <Image style={{ width: screenWidth, height: screenWidth * 0.66, resizeMode: 'cover' }} source={{ uri: urlR }}></Image>
       </View>
       <ScrollView>
         <View style={{ minHeight: screenWidth * 0.66 }}></View>
         <View style={{ height: 70, width: screenWidth, paddingHorizontal: 25, flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <View>
-            <Image style={{ width: screenWidth * 0.3, borderRadius: (screenWidth * 0.3) / 2, height: screenWidth * 0.3, resizeMode: 'cover', position: 'absolute', marginTop: -screenWidth * 0.217 }} source={{ uri: 'https://res.cloudinary.com/dhqtafsst/image/upload/v1572285194/Screenshot_2019-10-28_at_16.06.53_yrnnl7.jpg' }}></Image>
+            <Image style={{ width: screenWidth * 0.3, borderRadius: (screenWidth * 0.3) / 2, height: screenWidth * 0.3, resizeMode: 'cover', position: 'absolute', marginTop: -screenWidth * 0.217 }} source={{ uri: user.profileImageLowRes }}></Image>
           </View>
           <RoundedButtonNegative loading={false} onPress={() => props.navigation.navigate('EditProfile')}>
             Edit profile
@@ -29,7 +33,7 @@ export default function Profile(props) {
         </View>
 
         <View style={{ height: 70, width: screenWidth, paddingHorizontal: 25, flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text style={{ fontFamily: 'sf-ui-bold', color: '#1A1C2B', fontSize: 30 }}>gioGrand</Text>
+          <Text style={{ fontFamily: 'sf-ui-bold', color: '#1A1C2B', fontSize: 25 }}>{user.userName}</Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
               <Text style={{ fontFamily: 'sf-ui-bold', color: '#1A1C2B', fontSize: 18, marginBottom: 2 }}>125</Text>
@@ -43,9 +47,7 @@ export default function Profile(props) {
         </View>
 
         <View style={{ flex: 1, paddingHorizontal: 25 }}>
-          <Text style={{ fontFamily: 'sf-ui' }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          </Text>
+          <Text style={{ fontFamily: 'sf-ui' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
           <Text style={{ fontFamily: 'sf-ui-bold', marginTop: 4 }}>#summertime #beachlife </Text>
         </View>
       </ScrollView>

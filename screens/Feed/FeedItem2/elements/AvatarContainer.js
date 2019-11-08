@@ -6,7 +6,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 export default function AvatarContainer({ item }) {
   return (
     <FadeIn>
-      <Image style={styles.image} source={{ uri: item.author.profileImageHiRes }} />
+      <Image style={styles.image} source={{ uri: item.author.profileImageLowRes }} />
     </FadeIn>
   );
 }

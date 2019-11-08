@@ -6,18 +6,17 @@ import { ScaledSheet } from 'react-native-size-matters';
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 export default function UserMainDescription(props) {
-  let urlR = 'https://www.sylvansport.com/wp/wp-content/uploads/2018/11/image-placeholder-1200x800.jpg';
 
   return (
     <View style={styles.user_container}>
       <View style={styles.user_top_container}>
         <View style={styles.user_image_container}>
           <FadeIn>
-            <Image style={styles.user_image} source={{ uri: urlR }} />
+            <Image style={styles.user_image} source={{ uri: props.day.author.profileImageLowRes }} />
           </FadeIn>
         </View>
         <View>
-          <Text style={styles.user_username}>gioGrand</Text>
+          <Text style={styles.user_username}>{props.day.author.userName}</Text>
           <Text style={styles.user_howManyPlaces}>been to 120 places </Text>
         </View>
         <View style={styles.user_follow_container}>
@@ -46,7 +45,7 @@ const styles = ScaledSheet.create({
     flex: 1,
     flexDirection: 'row',
     width: screenWidth - 50,
-    maxHeight: '100@ms1', 
+    maxHeight: '100@ms1',
     margin: '20@ms1',
     marginTop: '20@ms1',
     marginBottom: '45@ms1',

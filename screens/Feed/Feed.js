@@ -66,14 +66,23 @@ const GET_DAYS = gql`
       locationName
       description
       weatherType
+      likesCount
+      likes {
+        userName
+      }
       temperature
       open
       author {
         id
         userName
-        profileImageHiRes
+        profileImageLowRes
+      }
+      favouritesCount
+      favourites {
+        userName
       }
       createdAt
+      postsCount
       posts {
         id
         title

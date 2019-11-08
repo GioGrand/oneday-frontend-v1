@@ -10,6 +10,7 @@ export default function ImagesContainerSingle(props) {
   const dispatch = useDispatch();
 
   const onSelect = () => {
+    console.log('/////////////////////////////////////////', props.day)
     dispatch(setDetailedDay(props.day));
     props.navigation.navigate('DetailedDay', {
       dayId: props.day.id,
@@ -20,7 +21,7 @@ export default function ImagesContainerSingle(props) {
     <TouchableWithoutFeedback onPress={onSelect}>
       <View style={styles.imagesContainer_container}>
         <FadeIn>
-          <Image style={styles.imagesContainer_image} source={{ uri: 'https://www.sylvansport.com/wp/wp-content/uploads/2018/11/image-placeholder-1200x800.jpg' }} />
+          <Image style={styles.imagesContainer_image} source={{ uri: props.day.posts[0].postImageHiRes }} />
         </FadeIn>
       </View>
     </TouchableWithoutFeedback>

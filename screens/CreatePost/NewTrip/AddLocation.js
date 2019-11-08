@@ -50,11 +50,11 @@ export default function AddLocation(props) {
           <BaseInput placeholder="Sagrada Familia" label="Location" onChangeText={e => dispatch(updatePost('title', e))} value={title} />
           <BaseInput placeholder="Enter a short description" label="Description" onChangeText={e => dispatch(updatePost('description', e))} value={description} />
 
-          {Object.keys(errors).length > 0 &&
+          {/* {Object.keys(errors).length > 0 &&
             Object.values(errors).map(el => {
               console.log('logging from here', el);
               return <Text key={el}>{el}</Text>;
-            })}
+            })} */}
         </View>
       </View>
       <View style={styles.lowerContainer}>
@@ -136,6 +136,8 @@ const CREATE_POST = gql`
     createPost(title: $title, description: $description, postImageHiRes: $postImageHiRes, lat: $lat, lng: $lng, day: $day) {
       id
       postImageHiRes
+      title
+      description
     }
   }
 `;

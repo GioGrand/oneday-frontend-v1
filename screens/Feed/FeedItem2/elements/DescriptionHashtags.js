@@ -3,10 +3,10 @@ import { Image, View, Text } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import { ScaledSheet } from 'react-native-size-matters';
 
-export default function DescriptionHashtags(props) {
+export default function DescriptionHashtags({ item }) {
   return (
     <View style={styles.description_container}>
-      <Text style={styles.description_text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+      {item.description && item.description.length > 1 && <Text style={styles.description_text}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</Text>}
       <Text style={styles.hashtags_text}>#summertime #beachlife </Text>
     </View>
   );

@@ -27,9 +27,9 @@ export default function FeedItem2(props) {
       </View>
       <View style={styles.feedItem_postContainer}>
         <UserHeader item={item} />
-        {randomImage < 15 ? <ImagesContainerSingle day={item} navigation={props.navigation} /> : <ImagesContainerScroll day={item} navigation={props.navigation} />}
-        <DescriptionHashtags />
-        <LikeSave />
+        {item.postsCount < 2 ? <ImagesContainerSingle day={item} navigation={props.navigation} /> : <ImagesContainerScroll day={item} navigation={props.navigation} />}
+        <DescriptionHashtags item={item} />
+        <LikeSave item={item}  />
       </View>
     </View>
   );

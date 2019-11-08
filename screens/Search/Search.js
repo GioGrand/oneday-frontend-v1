@@ -19,6 +19,13 @@ export default function SearchScreen(props) {
 
   console.log(citySearch);
 
+  const handleRedirect = city => {
+    console.log(city)
+    props.navigation.navigate('SearchResult', {
+      city: city,
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ paddingLeft: 25, paddingRight: 25, width: '100%' }}>
@@ -29,7 +36,7 @@ export default function SearchScreen(props) {
           {citySearch.length > 0 &&
             searchQuery.length > 3 &&
             citySearch.map(elem => (
-              <TouchableWithoutFeedback key={`${elem.name}${elem.country}`} onPress={() => console.log('ciao')}>
+              <TouchableWithoutFeedback key={`${elem.name}${elem.country}`} onPress={() => handleRedirect(elem.name)}>
                 <View style={styles.profileCard}>
                   <View>
                     <Text style={styles.upperText}>{elem.name}</Text>

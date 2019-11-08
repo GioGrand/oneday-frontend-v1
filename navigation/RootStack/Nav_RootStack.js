@@ -21,7 +21,10 @@ import EditProfile from '../../screens/Profile/EditProfile';
 import Settings from '../../screens/Profile/Settings';
 
 import FavouritesScreen from '../../screens/Favourites/Favourites';
+
+// SEARCH
 import Search from '../../screens/Search/Search';
+import SearchResult from '../../screens/Search/SearchResult';
 
 const FeedStack = createStackNavigator({
   Feed: Feed,
@@ -48,7 +51,7 @@ FeedStack.navigationOptions = ({ navigation }) => {
 
 FeedStack.path = '';
 
-const SearchStack = createStackNavigator({ Search });
+const SearchStack = createStackNavigator({ Search, SearchResult });
 
 SearchStack.navigationOptions = {
   tabBarLabel: 'Search',

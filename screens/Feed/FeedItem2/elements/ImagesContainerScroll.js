@@ -19,27 +19,18 @@ export default function ImagesContainerScroll(props) {
   return (
     <View style={styles.imagesContainer_container}>
       <ScrollView showsHorizontalScrollIndicator={false} style={styles.horizontalScrollFilter} horizontal="true">
-        <TouchableWithoutFeedback onPress={onSelect}>
-          <View style={styles.scrollableImage}>
-            <FadeIn>
-              <Image style={styles.imagesContainer_image} source={{ uri: urlR }} />
-            </FadeIn>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={onSelect}>
-          <View style={styles.scrollableImage}>
-            <FadeIn>
-              <Image style={styles.imagesContainer_image} source={{ uri: urlR }} />
-            </FadeIn>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={onSelect}>
-          <View style={styles.scrollableImage}>
-            <FadeIn>
-              <Image style={styles.imagesContainer_image} source={{ uri: urlR }} />
-            </FadeIn>
-          </View>
-        </TouchableWithoutFeedback>
+        {props.day.posts &&
+          props.day.posts.map(post => {
+            return (
+              <TouchableWithoutFeedback onPress={onSelect} key={post.id}>
+                <View style={styles.scrollableImage}>
+                  <FadeIn>
+                    <Image style={styles.imagesContainer_image} source={{ uri: post.postImageHiRes }} />
+                  </FadeIn>
+                </View>
+              </TouchableWithoutFeedback>
+            );
+          })}
       </ScrollView>
     </View>
   );

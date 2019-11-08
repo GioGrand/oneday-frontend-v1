@@ -17,9 +17,12 @@ import UserMainDescription from './elements/UserMainDescription';
 import LikeSave from '../FeedItem2/elements/LikeSave';
 import DescriptionHashtags from '../FeedItem2/elements/DescriptionHashtags';
 import openMap from 'react-native-open-maps';
+import { SliderBox } from 'react-native-image-slider-box';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
+
+let images = ['https://source.unsplash.com/1024x768/?nature', 'https://source.unsplash.com/1024x768/?water', 'https://source.unsplash.com/1024x768/?girl', 'https://source.unsplash.com/1024x768/?tree'];
 
 export default function DetailedDay(props) {
   const dispatch = useDispatch();
@@ -36,6 +39,7 @@ export default function DetailedDay(props) {
     };
     newArray.push(newObj);
   }
+  console.log(newArray);
 
   useEffect(() => {
     dispatch(setDetailedPost(currentDay.posts[0]));
@@ -53,11 +57,14 @@ export default function DetailedDay(props) {
 
   return (
     <View style={styles.dayContainer}>
-      <View style={styles.topImage_container}>{currentPost ? <Image style={styles.topImage_image} source={{ uri: currentPost.postImageHiRes }} /> : <Text></Text>}</View>
+      {/*    <View style={styles.topImage_container}>{currentPost ? <Image style={styles.topImage_image} source={{ uri: currentPost.postImageHiRes }} /> : <Text></Text>}</View> */}
+      <View style={styles.topImage_container}>
+        <SliderBox sliderBoxHeight={screenWidth} images={images} onCurrentImagePressed={index => console.warn(`image ${index} pressed`)} />
+      </View>
 
-      <UserMainDescription day={currentDay} />
+      <UserMainDescription />
       <ScrollView>
-        <View style={{ minHeight: screenWidth + 70 }}></View>
+        <View style={{ minHeight: 70, zIndex: 0 }}></View>
 
         <View style={styles.midContainer}>
           <Text style={styles.label}>MY DAY IN:</Text>
@@ -97,7 +104,7 @@ export default function DetailedDay(props) {
 
           <DescriptionHashtags item={currentDay} />
           <LikeSave item={currentDay} />
-         {/*  <Text onPress={_goToYosemite}>Open in Google Maps</Text> */}
+          <Text onPress={_goToYosemite}>Open in Google Maps</Text>
           <View style={{ height: 20 }}></View>
         </View>
 
@@ -228,6 +235,7 @@ const styles = StyleSheet.create({
   },
   midContainer: {
     width: screenWidth,
+    marginTop: 500,
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',

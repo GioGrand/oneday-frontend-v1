@@ -9,14 +9,17 @@ import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 // GRAPHQL
 import gql from 'graphql-tag';
 
-export default function SpotsList(props) {
+export default function SpotsList({ item }) {
+  console.log(item);
   return (
     <View style={styles.spots_container}>
-      <View style={styles.spots_image_container}></View>
+      <View style={styles.spots_image_container}>
+        <Image style={{ width: moderateScale(60, 1), height: moderateScale(60, 1), borderRadius: 5 }} source={{ uri: item.item.postImageHiRes }} />
+      </View>
       <View style={styles.spots_text_wrapper}>
         <View style={styles.title_wrapper}>
-          <Text style={styles.mainTitle}>Barceloneta</Text>
-          <Text style={styles.middleText}>Ciao</Text>
+          <Text style={styles.mainTitle}>{item.item.title}</Text>
+          <Text style={styles.middleText}>{item.item.description}</Text>
           <Text style={styles.delete_edit}>Edit - Delete</Text>
         </View>
         <View style={styles.buttons_wrapper}>
@@ -33,9 +36,9 @@ const styles = ScaledSheet.create({
     minHeight: '60@ms1',
     flexDirection: 'row',
     paddingBottom: '20@ms1',
-    marginBottom: '20@ms1',
-    borderBottomWidth: 1,
-    borderBottomColor: '#8a8a8f',
+    //  marginBottom: '20@ms1',
+    //  borderBottomWidth: 1,
+    //  borderBottomColor: '#8a8a8f',
   },
   spots_image_container: {
     height: '60@ms1',
@@ -72,7 +75,7 @@ const styles = ScaledSheet.create({
   },
   middleText: {
     fontFamily: 'sf-ui',
-    color: '#1A1C2B',
+    color: '#8a8a8f',
     fontSize: '14@ms1',
   },
 });
