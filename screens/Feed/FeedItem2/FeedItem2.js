@@ -15,19 +15,19 @@ import LikeSave from './elements/LikeSave';
 
 const screenWidth = Math.round(Dimensions.get('window').width) - 50;
 
-export default function FeedItem2(props) {
+export default function FeedItem2({navigation, day}) {
   let randomImage = Math.floor(Math.random() * 30);
 
-  const { item } = props.day;
+  const { item } = day;
 
   return (
     <View style={styles.feedItem_Container}>
       <View style={styles.feedItem_avatarContainer}>
-        <AvatarContainer item={item} />
+        <AvatarContainer navigation={navigation} item={item} />
       </View>
       <View style={styles.feedItem_postContainer}>
         <UserHeader item={item} />
-        {item.postsCount < 2 ? <ImagesContainerSingle day={item} navigation={props.navigation} /> : <ImagesContainerScroll day={item} navigation={props.navigation} />}
+        {item.postsCount < 2 ? <ImagesContainerSingle day={item} navigation={navigation} /> : <ImagesContainerScroll day={item} navigation={navigation} />}
         <DescriptionHashtags item={item} />
         <LikeSave item={item}  />
       </View>

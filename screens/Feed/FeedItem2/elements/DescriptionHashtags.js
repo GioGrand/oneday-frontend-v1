@@ -15,17 +15,17 @@ export default function DescriptionHashtags({ item }) {
 const styles = ScaledSheet.create({
   description_container: {
     flex: 1,
-    marginTop: '20@ms1',
+    marginTop: '5@ms1',
     marginRight: '20@ms1',
   },
   description_text: {
     fontFamily: 'sf-ui',
     color: '#8a8a8f',
-    fontSize: '13@ms1',
+//    fontSize: '13@ms1',
   },
   hashtags_text: {
     marginTop: '2@ms1',
     fontFamily: 'sf-ui',
-    fontSize: '13@ms1',
+  //  fontSize: '13@ms1',
   },
 });

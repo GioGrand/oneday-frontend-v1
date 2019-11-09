@@ -9,16 +9,18 @@ import TabBarIconAdd from '../../components/ui/TabBarIconAdd';
 import Feed from '../../screens/Feed/Feed';
 import DetailedDay from '../../screens/Feed/DetailedDay/DetailedDay';
 import SaveDay from './../../screens/CreatePost/NewTrip/SaveDay';
+import UserProfile from '../../screens/Feed/UserProfile';
 
 // ADD
 import AddPost from '../../screens/CreatePost/NewTrip/AddPost';
 import AddLocation from '../../screens/CreatePost/NewTrip/AddLocation';
 import CreatePostSwitch from '../../screens/CreatePost/CreatePostSwitch';
 
-// ADD
+// PROFILE
 import Profile from '../../screens/Profile/Profile';
 import EditProfile from '../../screens/Profile/EditProfile';
 import Settings from '../../screens/Profile/Settings';
+import UserMapView from '../../screens/Profile/UserMapView';
 
 import FavouritesScreen from '../../screens/Favourites/Favourites';
 
@@ -30,6 +32,7 @@ const FeedStack = createStackNavigator({
   Feed: Feed,
   SaveDay: SaveDay,
   DetailedDay: DetailedDay,
+  UserProfile: UserProfile,
 });
 
 // FeedStack.navigationOptions = {
@@ -88,6 +91,7 @@ const ProfileStack = createStackNavigator({
   Profile,
   EditProfile,
   Settings,
+  UserMapView,
 });
 
 ProfileStack.navigationOptions = {

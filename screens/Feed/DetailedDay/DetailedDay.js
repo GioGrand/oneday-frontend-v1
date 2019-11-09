@@ -37,13 +37,15 @@ export default function DetailedDay(props) {
     newArray.push(newObj);
   }
 
+  console.log(newArray);
+
   useEffect(() => {
     dispatch(setDetailedPost(currentDay.posts[0]));
   }, []);
 
   onLayout = () => {
     setTimeout(() => {
-      map.fitToCoordinates(newArray, { edgePadding: { top: 100, right: 100, bottom: 200, left: 100 }, animated: true });
+      map.fitToCoordinates(newArray, { edgePadding: { top: 100, right: 100, bottom: 100, left: 100 }, animated: true });
     }, 100);
   };
 
@@ -74,7 +76,7 @@ export default function DetailedDay(props) {
             <Text style={styles.stop_title}>{currentPost.title}</Text>
           </View>
 
-          <View style={styles.horizontalScroll}>
+          {/*   <View style={styles.horizontalScroll}>
             <ScrollView showsHorizontalScrollIndicator={false} horizontal="true">
               {currentDay.posts &&
                 currentDay.posts.map(post => {
@@ -93,11 +95,11 @@ export default function DetailedDay(props) {
                   );
                 })}
             </ScrollView>
-          </View>
+          </View> */}
 
-          <DescriptionHashtags item={currentDay} />
+          {/*   <DescriptionHashtags item={currentDay} /> */}
           <LikeSave item={currentDay} />
-         {/*  <Text onPress={_goToYosemite}>Open in Google Maps</Text> */}
+          {/*  <Text onPress={_goToYosemite}>Open in Google Maps</Text> */}
           <View style={{ height: 20 }}></View>
         </View>
 
@@ -119,14 +121,14 @@ export default function DetailedDay(props) {
           >
             {currentDay.posts.length > 0 &&
               currentDay.posts.map((post, key) => (
-                <MapView.Marker key={post.id} onPress={() => dispatch(setDetailedPost(post))} coordinate={{ latitude: post.location.coordinates[0], longitude: post.location.coordinates[1] }} title={post.title}>
+                <MapView.Marker key={post.id} onPress={() => dispatch(setDetailedPost(post))} coordinate={{ latitude: post.location.coordinates[0], longitude: post.location.coordinates[1] }}>
                   {post.id === currentPost.id ? (
                     <View style={styles.selectedCircle}>
-                      <Text style={styles.pinText}>{key + 1}</Text>
+                      <Image style={styles.selectedImage} source={{ uri: post.postImageHiRes }} />
                     </View>
                   ) : (
                     <View style={styles.circle}>
-                      <Text style={styles.pinText}>{key + 1}</Text>
+                      <Image style={styles.image} source={{ uri: post.postImageHiRes }} />
                     </View>
                   )}
                 </MapView.Marker>
@@ -153,7 +155,7 @@ DetailedDay.navigationOptions = ({ navigation }) => ({
   ),
 });
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   dayContainer: {
     flex: 1,
     backgroundColor: '#453455',
@@ -197,6 +199,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
+    backgroundColor: '#e3e3e3',
+    borderRadius: 15,
+    marginTop: 5,
+    padding: 10,
   },
   number_circle: {
     width: 30,
@@ -213,7 +219,7 @@ const styles = StyleSheet.create({
   },
   stop_title: {
     flex: 1,
-    fontFamily: 'sf-ui-semibold-italic',
+    fontFamily: 'sf-ui-bold',
     color: '#1A1C2B',
     fontSize: 22,
     marginLeft: 10,
@@ -251,22 +257,31 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   circle: {
-    width: 35,
-    height: 35,
+    width: '40@ms1',
+    height: '40@ms1',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 35 / 2,
+    borderRadius: '5@ms1',
     backgroundColor: '#1A1C2B',
   },
   selectedCircle: {
-    width: 35,
-    height: 35,
+    width: '50@ms1',
+    height: '50@ms1',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 35 / 2,
-    backgroundColor: '#FF6251',
+    borderRadius: '5@ms1',
+  },
+  selectedImage: {
+    width: '50@ms1',
+    height: '50@ms1',
+    borderRadius: '5@ms1',
+  },
+  image: {
+    width: '40@ms1',
+    height: '40@ms1',
+    borderRadius: '5@ms1',
   },
   pinText: {
     color: 'white',

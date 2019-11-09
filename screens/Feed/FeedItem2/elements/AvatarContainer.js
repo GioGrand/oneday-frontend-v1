@@ -1,13 +1,23 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableWithoutFeedback } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import { ScaledSheet } from 'react-native-size-matters';
 
-export default function AvatarContainer({ item }) {
+export default function AvatarContainer({ item, navigation }) {
+  console.log(item.author.id);
   return (
-    <FadeIn>
-      <Image style={styles.image} source={{ uri: item.author.profileImageLowRes }} />
-    </FadeIn>
+    <TouchableWithoutFeedback
+      onPress={() =>
+        // navigation.navigate('UserProfile', {
+        //   userId: item.author.id,
+        // })
+        console.log(clicked)
+      }
+    >
+      <FadeIn>
+        <Image style={styles.image} source={{ uri: item.author.profileImageLowRes }} />
+      </FadeIn>
+    </TouchableWithoutFeedback>
   );
 }
 
