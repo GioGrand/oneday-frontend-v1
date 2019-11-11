@@ -10,7 +10,7 @@ export default function ImagesContainerSingle(props) {
   const dispatch = useDispatch();
 
   const onSelect = () => {
-    console.log('/////////////////////////////////////////', props.day)
+    console.log('/////////////////////////////////////////', props.day);
     dispatch(setDetailedDay(props.day));
     props.navigation.navigate('DetailedDay', {
       dayId: props.day.id,
@@ -33,9 +33,9 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: '#e3e3e3',
     marginTop: '20@ms1',
-    borderTopLeftRadius: '15@ms1',
-    borderBottomLeftRadius: '15@ms1',
+    borderRadius: '8@ms1',
     overflow: 'hidden',
+    marginRight: '12@ms1',
   },
   imagesContainer_image: {
     width: '100%',

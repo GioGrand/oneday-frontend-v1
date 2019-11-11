@@ -13,6 +13,7 @@ import { useMutation } from '@apollo/react-hooks';
 // COMPONENT SPECIFIC
 import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
+import * as ImagePicker from 'expo-image-picker';
 import * as ImageManipulator from 'expo-image-manipulator';
 // FILTERS
 import FilterSaturate from '../../../utils/imageManipulation/filterSaturate';
@@ -30,7 +31,7 @@ export default function AddPost(props) {
   snap = async () => {
     if (camera) {
       let photo = await camera.takePictureAsync();
-      const manipResult = await ImageManipulator.manipulateAsync(photo.uri, [{ resize: { width: 1000, heigth: 1000 } }], { compress: 1, format: ImageManipulator.SaveFormat.PNG });
+      const manipResult = await ImageManipulator.manipulateAsync(photo.uri, [{ resize: { width: 700, heigth: 700 } }], { compress: 1, format: ImageManipulator.SaveFormat.PNG });
       dispatch(updatePost('localOriginalImageUri', manipResult.uri));
       dispatch(updatePost('localFilteredImageUri', manipResult.uri));
       const newImage = new ReactNativeFile({
@@ -41,6 +42,24 @@ export default function AddPost(props) {
       //console.log('NEW_IMAGE', newImage);
       dispatch(updatePost('imageObjToUpload', newImage));
     }
+  };
+
+  _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+    });
+    const manipResult = await ImageManipulator.manipulateAsync(result.uri, [{ resize: { width: 700, heigth: 700 } }], { compress: 1, format: ImageManipulator.SaveFormat.PNG });
+    dispatch(updatePost('localOriginalImageUri', manipResult.uri));
+    dispatch(updatePost('localFilteredImageUri', manipResult.uri));
+    const newImage = new ReactNativeFile({
+      uri: manipResult.uri,
+      type: 'image/png',
+      name: 'i-am-a-name',
+    });
+    //console.log('NEW_IMAGE', newImage);
+    dispatch(updatePost('imageObjToUpload', newImage));
   };
 
   const [addImage, { data, loading }] = useMutation(ADD_IMAGE, {
@@ -129,6 +148,9 @@ export default function AddPost(props) {
           Re-take picture
         </MasterButton>
       )}
+      <MasterButton loading={false} onPress={_pickImage}>
+        Pick from Camera Roll
+      </MasterButton>
 
       <ScrollView showsHorizontalScrollIndicator={false} style={styles.filterContainer} horizontal="true">
         <View style={styles.cameraMask}>{!post.localOriginalImageUri ? <Text></Text> : <NoFilter update={updateImageAfterFilter} url={post.localOriginalImageUri} />}</View>

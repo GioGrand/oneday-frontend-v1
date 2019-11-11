@@ -45,7 +45,7 @@ export default function FilterBW({ url, update }) {
       </Surface>
 
       <View style={{ width: 0, height: 0 }}>
-        <Surface ref={view => (imageFilterBW = view)} style={{ width: 1000, height: 1000, borderRadius: 10 }}>
+        <Surface ref={view => (imageFilterBW = view)} style={{ width: 700, height: 700, borderRadius: 10 }}>
           <Saturate {...filter}>{{ uri: url }}</Saturate>
         </Surface>
       </View>

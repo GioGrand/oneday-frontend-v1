@@ -46,7 +46,7 @@ export default function NoFilter({ url, update }) {
       </Surface>
 
       <View style={{ width: 0, height: 0 }}>
-        <Surface ref={view => (imageFilterNf = view)}  style={{ width: 1000, height: 1000 }}>
+        <Surface ref={view => (imageFilterNf = view)}  style={{ width: 700, height: 700 }}>
           <Saturate {...filter}>{{ uri: url }}</Saturate>
         </Surface>
       </View>
