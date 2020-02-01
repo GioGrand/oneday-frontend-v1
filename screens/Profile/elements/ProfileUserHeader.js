@@ -24,11 +24,11 @@ export default function ProfileUserHeader({ profile }) {
         <Text style={styles.user_username}>{profile.userName}</Text>
         <View style={{ flexDirection: 'row' }}>
           <View style={styles.follower_container}>
-            <Text style={styles.follower_number}>{profile.followersCount}</Text>
+            <Text style={styles.follower_number}>341</Text>
             <Text style={styles.follower_text}>Follower</Text>
           </View>
           <View style={styles.following_container}>
-            <Text style={styles.follower_number}>{profile.followingCount}</Text>
+            <Text style={styles.follower_number}>154</Text>
             <Text style={styles.follower_text}>Following</Text>
           </View>
         </View>
@@ -40,7 +40,7 @@ export default function ProfileUserHeader({ profile }) {
 const styles = ScaledSheet.create({
   mainContainer: {
     flex: 1,
-    marginTop: -20
+    marginTop: -20,
   },
   fake_container: {
     minHeight: screenWidth * 0.66,

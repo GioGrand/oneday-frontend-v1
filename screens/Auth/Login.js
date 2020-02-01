@@ -22,10 +22,11 @@ export default function Login(props) {
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(_, result) {
       dispatch(login(result.data.login));
+      console.log('RESULT FROM QUERY', result.data.login)
       props.navigation.navigate('App');
     },
     onError(err) {
-      console.log(err.graphQLErrors[0].extensions.exception.errors);
+      console.log('ERRORS', err.graphQLErrors[0].extensions.exception.errors);
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: { userName, password },
@@ -36,6 +37,11 @@ export default function Login(props) {
       gaOptions: {
         userId: 123
       }
+    });
+    ReactGA.event({
+      category: 'Ciao',
+      action: 'Banana',
+      label: 'Mucca'
     });
   }, [])
 
@@ -110,7 +116,8 @@ const LOGIN_USER = gql`
       favouritesCount
       followersCount
       followingCount
-      token
+      accessToken
+      refreshToken
     }
   }
 `;

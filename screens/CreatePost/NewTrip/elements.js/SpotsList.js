@@ -30,8 +30,6 @@ export default function SpotsList({ item }) {
   );
 }
 
-// banana
-
 const styles = ScaledSheet.create({
   spots_container: {
     width: '100%',

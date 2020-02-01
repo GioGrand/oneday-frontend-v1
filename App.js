@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AsyncStorage } from 'react-native';
-
+import { onError } from "apollo-link-error";
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client';
 import { ApolloProvider } from 'react-apollo';
@@ -13,7 +13,8 @@ import { ApolloLink } from 'apollo-link';
 import ApolloClient from 'apollo-client';
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { setContext } from 'apollo-link-context';
-
+import axios from "axios";
+import jwtDecode from "jwt-decode";
 // REDUX
 
 import { PersistGate } from 'redux-persist/integration/react';
@@ -32,8 +33,40 @@ const httpLink = createUploadLink({
 //   uri: 'http://localhost:4002/graphql',
 // });
 
+const getToken = async () => {
+  const token = await AsyncStorage.getItem("jwtToken");
+  const refreshToken = await AsyncStorage.getItem("jwtRefreshToken");
+
+  console.log('THIS IS THE TOKEN', token);
+  console.log('THIS IS THE REFRESH TOKEN', refreshToken);
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    console.log('THIS IS THE DECODED TOKEN', decodedToken);
+    const now = new Date();
+    let delta = now.getTime() < decodedToken.exp * 1000;
+    console.log('THIS IS THE DELTA', delta);
+    if (!delta && refreshToken) {
+      console.log("refreshing");
+      let resp = await axios({
+        url: 'https://oneday-backend-v1.herokuapp.com/graphql',
+        method: "post",
+        data: {
+          query: `mutation refreshToken { refreshToken(refreshToken: "${refreshToken}") { accessToken }}`
+        }
+      });
+      // console.log(resp.data.data.refreshToken.accessToken);
+      const newToken = resp.data.data.refreshToken.accessToken;
+      await AsyncStorage.setItem("jwtToken", newToken);
+      return newToken;
+    }
+    return token;
+  }
+  return undefined;
+};
+
+
 const authLink = setContext(async (_, { headers, ...context }) => {
-  const token = await AsyncStorage.getItem('jwtToken');
+  const token = await getToken();
   return {
     headers: {
       ...headers,
@@ -43,7 +76,25 @@ const authLink = setContext(async (_, { headers, ...context }) => {
   };
 });
 
-const link = ApolloLink.from([authLink, httpLink]);
+const errorLink = onError(
+  ({ graphQLErrors, networkError, operation, forward }) => {
+    if (graphQLErrors)
+      graphQLErrors.forEach(
+        async ({ message, locations, path, extensions }) => {
+          //console.log(extensions)
+          console.log(
+            `CALLING FROM MIDDLEWARE: => [GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}, ${extensions.code}`
+          );
+        }
+      );
+    if (networkError)
+      console.log(
+        `CALLING FROM MIDDLEWARE: => [Network error]: ${networkError}`
+      );
+  }
+);
+
+const link = ApolloLink.from([errorLink, authLink, httpLink]);
 
 export const client = new ApolloClient({
   link: link,

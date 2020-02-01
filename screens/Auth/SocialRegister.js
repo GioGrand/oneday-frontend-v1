@@ -116,7 +116,6 @@ export default function SocialRegister(props) {
             console.log('logging from here', el);
             return <Text key={el}>{el}</Text>;
           })}
-
         <MasterButton loading={false} onPress={loginFacebook}>
           Facebook
         </MasterButton>

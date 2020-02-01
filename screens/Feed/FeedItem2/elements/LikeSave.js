@@ -9,7 +9,7 @@ import { BaseTitle, BaseInput, MasterButton, AntDesign, Feather, StyledText } fr
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 
-export default function LikeSave({ item }) {
+export default function LikeSave({ item, detailedImage }) {
   let randomLike = Math.floor(Math.random() * 100);
   let randomSaved = Math.floor(Math.random() * 100);
 
@@ -90,6 +90,11 @@ export default function LikeSave({ item }) {
           <AntDesign name="star" color="#ff3333" size={moderateScale(18, 1)} />
           <Text style={styles.likes_text}>{!favourite ? 'save' : 'saved'}</Text>
         </TouchableOpacity>
+      )}
+      {detailedImage && (
+        <View style={styles.comments_container}>
+          <Text style={styles.likes_text}>open in Maps</Text>
+        </View>
       )}
     </View>
   );

@@ -25,7 +25,7 @@ export default function SearchResult(props) {
 
   return (
     <View style={styles.container}>
-      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />}>
+      <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />}>
         {loading ? <ActivityIndicator size="large" /> : <Text></Text>}
         <FlatList refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />} data={getDaysByLocation} keyExtractor={item => item.id.toString()} renderItem={day => <FeedItem2 navigation={props.navigation} day={day} />} />
       </ScrollView>

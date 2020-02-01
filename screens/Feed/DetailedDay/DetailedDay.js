@@ -58,7 +58,7 @@ export default function DetailedDay(props) {
       <View style={styles.topImage_container}>{currentPost ? <Image style={styles.topImage_image} source={{ uri: currentPost.postImageHiRes }} /> : <Text></Text>}</View>
 
       <UserMainDescription day={currentDay} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ minHeight: screenWidth + 70 }}></View>
 
         <View style={styles.midContainer}>
@@ -98,7 +98,7 @@ export default function DetailedDay(props) {
           </View> */}
 
           {/*   <DescriptionHashtags item={currentDay} /> */}
-          <LikeSave item={currentDay} />
+          <LikeSave item={currentDay} detailedImage={true} />
           {/*  <Text onPress={_goToYosemite}>Open in Google Maps</Text> */}
           <View style={{ height: 20 }}></View>
         </View>
